@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Transfer Money</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label>Recipient Account Number:</label>
+    {{ form.recipient_account }}
+    <br><br>
+    <label>Enter Amount:</label>
+    {{ form.amount }}
+    <br><br>
+    <button type="submit" class="btn">Transfer</button>
+    <a href="{% url 'account_dashboard' account.account_number %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

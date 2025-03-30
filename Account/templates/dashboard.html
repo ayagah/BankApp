@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome, {{ account.account_name }}</h1>
+<p><strong>Account Number:</strong> {{ account.account_number }}</p>
+<p><strong>Balance:</strong> Ksh {{ account.balance }}</p>
+
+<a class="btn" href="{% url 'home' %}">Home</a>
+<a class="btn" href="{% url 'deposit_cash' account.account_number %}">Deposit</a>
+<a class="btn" href="{% url 'withdraw_cash' account.account_number %}">Withdraw</a>
+<a class="btn" href="{% url 'transfer_cash' account.account_number %}">Transfer</a>
+<a href="{% url 'change_pin' account.account_number %}" class="btn btn-warning"><i class="fas fa-key"></i> Change PIN</a>
+<a class="btn" href="{% url 'view_transactions' account.account_number %}">View Transactions</a>
+<a class="btn" href="{% url 'view_statement' account.account_number %}">View Statement</a>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Create New Account</h2>
+<p>You don't have any accounts yet. Would you like to create one?</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Create New Account</button>
+    <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
+</form>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="logout-container">
+    <h2>Logout Successful</h2>
+    <div class="logout-message">
+        <p>You have been successfully logged out of your account.</p>
+        <p>Thank you for using our banking services.</p>
+    </div>
+    <div class="logout-actions">
+        <a href="{% url 'login' %}" class="btn btn-primary">Login Again</a>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Return Home</a>
+    </div>
+</div>
+
+<style>
+    .logout-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    
+    .logout-message {
+        margin: 25px 0;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    
+    .logout-actions {
+        margin-top: 30px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        margin: 0 10px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+    }
+    
+    .btn-primary {
+        background-color: #004085;
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        background-color: #002752;
+    }
+    
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+    
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>
+{% endblock %}

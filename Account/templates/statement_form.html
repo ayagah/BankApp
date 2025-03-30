@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Account Statement</h2>
+            <p>Account: {{ account.account_name }} ({{ account.account_number }})</p>
+        </div>
+        <div class="col-md-4 text-right">
+            <a href="{% url 'view_transactions' account.account_number %}" class="btn btn-info">
+                <i class="fas fa-list"></i> View All Transactions
+            </a>
+            <a href="{% url 'account_dashboard' account.account_number %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Account
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Select Statement Period</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.start_date.label_tag }}
+                        {{ form.start_date }}
+                        {% if form.start_date.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.start_date.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.end_date.label_tag }}
+                        {{ form.end_date }}
+                        {% if form.end_date.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.end_date.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Format</label>
+                        <div class="form-control">
+                            {% for radio in form.format %}
+                            <div class="form-check form-check-inline">
+                                {{ radio }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Generate Statement</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

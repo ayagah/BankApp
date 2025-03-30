@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Statement for {{ account.account_number }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { margin-bottom: 5px; }
+        .header p { margin: 0; }
+        .summary { margin-bottom: 20px; }
+        .summary-row { display: flex; justify-content: space-between; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .text-right { text-align: right; }
+        .text-success { color: green; }
+        .text-danger { color: red; }
+        .footer { margin-top: 30px; font-size: 0.8em; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Bank Statement</h1>
+        <p>{{ account.account_name }} ({{ account.account_number }})</p>
+        <p>Period: {{ start_date|date:"M d, Y" }} to {{ end_date|date:"M d, Y" }}</p>
+        <p>Generated on: {% now "M d, Y H:i" %}</p>
+    </div>
+
+    <div class="summary">
+        <div class="summary-row">
+            <span><strong>Opening Balance:</strong> {{ opening_balance }}</span>
+            <span><strong>Closing Balance:</strong> {{ closing_balance }}</span>
+        </div>
+        <div class="summary-row">
+            <span><strong>Total Deposits:</strong> {{ total_deposits }}</span>
+            <span><strong>Total Withdrawals:</strong> {{ total_withdrawals }}</span>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th class="text-right">Amount</th>
+                <th class="text-right">Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.date|date:"M d, Y H:i" }}</td>
+                <td>{{ transaction.get_transaction_type_display }}</td>
+                <td>{{ transaction.description }}</td>
+                <td class="text-right {% if transaction.transaction_type == 'D' %}text-success{% else %}text-danger{% endif %}">
+                    {% if transaction.transaction_type == 'D' %}+{% else %}-{% endif %}{{ transaction.amount }}
+                </td>
+                <td class="text-right">{{ transaction.balance_after }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="footer">
+        <p>This is an official statement from {{ BANK_NAME }}. Please retain for your records.</p>
+        <p>Page 1 of 1</p>
+    </div>
+</body>
+</html>

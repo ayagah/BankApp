@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Deposit Cash</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label>Enter amount to Deposit:</label>
+    {{ form.amount }}
+    <br><br>
+    <button type="submit" class="btn btn-primary">Withdraw</button>
+    <a href="{% url 'account_dashboard' account.account_number %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
